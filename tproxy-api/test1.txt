@@ -1,0 +1,183 @@
+/min/api/v1/get-ip
+
+GET
+
+{
+    "ipv4": [
+    ],
+    "ipv6": [
+    ]
+}
+
+/min/api/v1/create-proxy
+
+POST
+
+{
+    "data": [
+        {
+            "http_port": "10001",
+            "external_ip": "45.77.174.115",
+            "bandwidth": "536870912",
+            "authentication": {
+                "user": [
+                    {
+                        "username": "username1",
+                        "password": "password1"
+                    },
+                    {
+                        "username": "username2",
+                        "password": "password2"
+                    },
+                    {
+                        "username": "username3",
+                        "password": "password3"
+                    },
+                    {
+                        "username": "username4",
+                        "password": "password4"
+                    }
+                ],
+                "ip": [
+                    "45.32.108.22"
+                    "45.32.108.22/23"
+                    "2401:c080:1400:5cc7:5400:4ff:fe25:fdba"
+                    "2401:c080:1400:5cc7:5400:4ff:fe25:fdba/64"
+                ]
+            }
+        },
+        {
+            "http_port": "10002",
+            "external_ip": "2001:19f0:4400:6f18:5400:4ff:fe89:39e3",
+            "bandwidth": "536870912",
+            "authentication": {
+                "user": [
+                    {
+                        "username": "username1",
+                        "password": "password1"
+                    },
+                    {
+                        "username": "username2",
+                        "password": "password2"
+                    },
+                    {
+                        "username": "username3",
+                        "password": "password3"
+                    },
+                    {
+                        "username": "username4",
+                        "password": "password4"
+                    }
+                ],
+                "ip": [
+                    "45.32.108.22"
+                    "45.32.108.22/23"
+                    "2401:c080:1400:5cc7:5400:4ff:fe25:fdba"
+                    "2401:c080:1400:5cc7:5400:4ff:fe25:fdba/64"
+                ]
+            }
+        }
+    ]
+}
+
+/min/api/v1/update-proxy
+
+POST
+
+{
+    "data": [
+        {
+            "http_port": "10001",
+            "external_ip": "45.77.174.115",
+            "bandwidth": "536870912",
+            "authentication": {
+                "user": [
+                    {
+                        "username": "username1",
+                        "password": "password1"
+                    },
+                    {
+                        "username": "username2",
+                        "password": "password2"
+                    },
+                    {
+                        "username": "username3",
+                        "password": "password3"
+                    },
+                    {
+                        "username": "username4",
+                        "password": "password4"
+                    }
+                ],
+                "ip": [
+                    "103.79.141.1"
+                    "103.79.141.2"
+                    "103.79.141.3"
+                    "103.79.141.4"
+                    "103.79.1.1/24"
+                    "103.79.2.1/24"
+                    "103.79.3.1/24"
+                    "103.79.4.1/24"
+
+                ]
+            }
+        },
+        {
+            "http_port": "10002",
+            "external_ip": "2001:19f0:4400:6f18:5400:4ff:fe89:39e3",
+            "bandwidth": "536870912",
+            "authentication": {
+                "user": [
+                    {
+                        "username": "username1",
+                        "password": "password1"
+                    },
+                    {
+                        "username": "username2",
+                        "password": "password2"
+                    },
+                    {
+                        "username": "username3",
+                        "password": "password3"
+                    },
+                    {
+                        "username": "username4",
+                        "password": "password4"
+                    }
+                ],
+                "ip": [
+                    "103.79.141.1"
+                    "103.79.141.2"
+                    "103.79.141.3"
+                    "103.79.141.4"
+                    "103.79.1.1/24"
+                    "103.79.2.1/24"
+                    "103.79.3.1/24"
+                    "103.79.4.1/24"
+
+                ]
+            }
+        }
+    ]
+}
+
+/min/api/v1/delete-proxy
+
+POST
+
+{
+    "data": [
+        {
+            "http_port": "10001"
+        },
+        {
+            "http_port": "10002"
+        }
+    ]
+}
+
+/min/api/v1/get-proxy
+
+GET
+
+page=1&per_page=100
