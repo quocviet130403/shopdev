@@ -5,6 +5,7 @@ const morgan = require('morgan')
 const { default: helmet } = require('helmet')
 const compression = require('compression')
 const app = express()
+const router = require('./src/routers/index')
 
 // middleware
 app.use(morgan('dev'))
@@ -17,6 +18,7 @@ require('./src/dbs/init.mongo')
 // checkOverload()
 
 // routes
+app.use('/', require('./src/routers'))
 
 // handle error
 
