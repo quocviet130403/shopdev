@@ -1,30 +1,27 @@
 'use strict'
 
-const mongoose = require('mongoose'); // Erase if already required
+const {Schema, model} = require('mongoose'); // Erase if already required
 
-// Declare the Schema of the Mongo model
-var userSchema = new mongoose.Schema({
-    name:{
-        type:String,
-        required:true,
-        unique:true,
-        index:true,
+const DOCUMENT_NAME = 'Key';
+const COLLECTION = 'Keys';
+var keySchema = new Schema({
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
     },
-    email:{
-        type:String,
-        required:true,
-        unique:true,
+    publicKey: {
+        type: String,
+        required: true
     },
-    mobile:{
-        type:String,
-        required:true,
-        unique:true,
+    refreshToken: {
+        type: Array,
+        default: []
     },
-    password:{
-        type:String,
-        required:true,
-    },
+}, {
+    timestamps: true,
+    collection: COLLECTION
 });
 
 //Export the model
-module.exports = mongoose.model('User', userSchema);
+module.exports = model(DOCUMENT_NAME, keySchema);

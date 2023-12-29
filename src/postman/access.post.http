@@ -2,6 +2,13 @@
 ###
 
 POST {{url_dev}}/auth/signUp
+Content-Type: application/json
+
+{
+    "name": "shopDev19",
+    "email": "shopdev19@gmail.com",
+    "password": "vietdz1304"
+}
 
 HTTP/1.1 200  - OK
 content-security-policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests
@@ -17,8 +24,9 @@ x-frame-options: SAMEORIGIN
 x-permitted-cross-domain-policies: none
 x-xss-protection: 0
 content-type: application/json; charset=utf-8
-content-length: 12
-etag: W/"c-W8b47RZH5mUQPFFL7w2Ud28rDAA"
+etag: W/"772-Qq8RgjivuP/xur+2/W8JyVnc0ig"
 vary: Accept-Encoding
-date: Thu, 28 Dec 2023 07:22:50 GMT
+content-encoding: gzip
+date: Fri, 29 Dec 2023 09:32:43 GMT
 connection: close
+transfer-encoding: chunked

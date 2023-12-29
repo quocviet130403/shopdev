@@ -2,6 +2,10 @@
 
 const shopModel = require("../models/shop.model")
 const bcrypt = require('bcrypt')
+const crypto = require('crypto');
+const { getInfoData } = require("../utils");
+const { createTokenPair } = require("../auth/authUltils");
+const keyService = require("./key.service");
 
 const roleShop = {
     SHOP: 'SHOP',
@@ -11,7 +15,7 @@ const roleShop = {
 };
 
 class AccessService {
-    async signUp(name, email, password) {
+    async signUp({name, email, password}) {
         try {
             const shop = await shopModel.findOne({email: email}).lean()
 
@@ -22,18 +26,53 @@ class AccessService {
                 }
             }
 
-            const hashPassword = bcrypt.hash(password, 10);
+            const hashPassword = await bcrypt.hash(password, 10);
             const newShop = await shopModel.create({
-                name, email, hashPassword, roles: [roleShop.SHOP]
+                name, email, password: hashPassword, roles: [roleShop.SHOP]
             })
 
             if (newShop) {
-                
+                const {privateKey, publicKey} = crypto.generateKeyPairSync('rsa', {
+                    modulusLength: 4096,
+                    publicKeyEncoding: {
+                        type: 'pkcs1',
+                        format: 'pem'
+                    },
+                    privateKeyEncoding: {
+                        type: 'pkcs1',
+                        format: 'pem',
+                    }
+                })
+
+                const publicKeyString = await keyService.createKeyToken({
+                    userId: newShop._id,
+                    publicKey: publicKey
+                })
+
+                if (!publicKeyString) {
+                    return {
+                        code: 500,
+                        messange: 'Create KeyToken Fail!!!'
+                    }
+                }
+
+                const publicKeyObject = await crypto.createPublicKey(publicKeyString)
+
+                const tokens = await createTokenPair({userId: newShop._id, email}, publicKeyObject, privateKey)
+
+                return {
+                    code: 200,
+                    messange: 'Sign Up Success!!!',
+                    metadata: {
+                        shop: getInfoData({fileds: ['_id', 'name', 'email'], object: newShop}),
+                        tokens
+                    }
+                }
             }
         } catch (error) {
             return {
                 code: 500,
-                messange: 'Email Exist!!!'
+                messange: error
             }
         }
     }

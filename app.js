@@ -11,6 +11,8 @@ const router = require('./src/routers/index')
 app.use(morgan('dev'))
 app.use(helmet())
 app.use(compression())
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 // database
 require('./src/dbs/init.mongo')
