@@ -3,7 +3,6 @@
 
 POST {{url_dev}}/auth/signUp
 Content-Type: application/json
-
 {
     "name": "shopDev19",
     "email": "shopdev19@gmail.com",
@@ -24,9 +23,8 @@ x-frame-options: SAMEORIGIN
 x-permitted-cross-domain-policies: none
 x-xss-protection: 0
 content-type: application/json; charset=utf-8
-etag: W/"772-Qq8RgjivuP/xur+2/W8JyVnc0ig"
+content-length: 42
+etag: W/"2a-yMJfQMplCH9YzggRgT8KqKK8tJ0"
 vary: Accept-Encoding
-content-encoding: gzip
-date: Fri, 29 Dec 2023 09:32:43 GMT
+date: Fri, 05 Jan 2024 08:59:25 GMT
 connection: close
-transfer-encoding: chunked

@@ -26,7 +26,14 @@ const checkOverload = () => {
     }, SECOND_CHECK_TIMEOUT)
 }
 
+const asynHandler = (fn) => (req, res, next) => {
+    return Promise
+        .resolve(fn(req, res, next))
+        .catch(next)
+}
+
 module.exports = {
     countConnect,
-    checkOverload
+    checkOverload,
+    asynHandler
 }

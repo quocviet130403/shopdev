@@ -2,8 +2,9 @@
 
 const express = require('express');
 const accessController = require('../../controllers/access.controller');
+const { asynHandler } = require('../../helpers/check.connect');
 const router = express.Router()
 
-router.post('/signUp', accessController.signUp);
+router.post('/signUp', asynHandler(accessController.signUp));
 
 module.exports = router 
