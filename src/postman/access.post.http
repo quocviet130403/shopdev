@@ -4,8 +4,8 @@
 POST {{url_dev}}/auth/signUp
 Content-Type: application/json
 {
-    "name": "shopDev19",
-    "email": "shopdev19@gmail.com",
+    "name": "shopDev20",
+    "email": "shopdev20@gmail.com",
     "password": "vietdz1304"
 }
 
@@ -23,8 +23,8 @@ x-frame-options: SAMEORIGIN
 x-permitted-cross-domain-policies: none
 x-xss-protection: 0
 content-type: application/json; charset=utf-8
-content-length: 42
-etag: W/"2a-yMJfQMplCH9YzggRgT8KqKK8tJ0"
+content-length: 81
+etag: W/"51-unf8cwaKGGOuFVkg0g6hDyHeGys"
 vary: Accept-Encoding
-date: Fri, 05 Jan 2024 08:59:25 GMT
+date: Fri, 05 Jan 2024 09:50:42 GMT
 connection: close

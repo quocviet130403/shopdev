@@ -2,28 +2,28 @@
 
 const StatusCodeError = {
     CONFLICT: 409,
-    EXSIST: 400,
+    EXSIST: 403,
 }
 
-const StatusCodeMessage = {
+const MessageError = {
     CONFLICT: 'Conflict',
     EXSIST: 'Exsist',
 }
 
-class ErrorHandle extends Error {
+class ErrorResponse extends Error {
   constructor(statusCode, message) {
     super(message);
     this.statusCode = statusCode;
   }
 }
 
-class ConflictError extends ErrorHandle {
+class ConflictError extends ErrorResponse {
   constructor(message = StatusCodeMessage.CONFLICT, statusCode = StatusCodeError.CONFLICT) {
     super(statusCode, message);
   }
 }
 
-class ExsistError extends ErrorHandle {
+class ExsistError extends ErrorResponse {
   constructor(message = StatusCodeMessage.EXSIST, statusCode = StatusCodeError.EXSIST) {
     super(statusCode, message);
   }
