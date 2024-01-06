@@ -3,11 +3,13 @@
 const StatusCodeError = {
     CONFLICT: 409,
     EXSIST: 403,
+    CREATED_FAIL: 400,
 }
 
 const MessageError = {
     CONFLICT: 'Conflict',
     EXSIST: 'Exsist',
+    CREATED_FAIL: 'Created fail',
 }
 
 class ErrorResponse extends Error {
@@ -29,7 +31,14 @@ class ExsistError extends ErrorResponse {
   }
 }
 
+class CreatedFailError extends ErrorResponse {
+  constructor(message = StatusCodeMessage.CREATED_FAIL, statusCode = StatusCodeError.CREATED_FAIL) {
+    super(statusCode, message);
+  }
+}
+
 module.exports = {
     ConflictError,
-    ExsistError
+    ExsistError,
+    CreatedFailError
 }

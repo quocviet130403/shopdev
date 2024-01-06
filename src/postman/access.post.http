@@ -9,7 +9,7 @@ Content-Type: application/json
     "password": "vietdz1304"
 }
 
-HTTP/1.1 200  - OK
+HTTP/1.1 500  - Internal Server Error
 content-security-policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests
 cross-origin-opener-policy: same-origin
 cross-origin-resource-policy: same-origin
@@ -23,8 +23,8 @@ x-frame-options: SAMEORIGIN
 x-permitted-cross-domain-policies: none
 x-xss-protection: 0
 content-type: application/json; charset=utf-8
-content-length: 81
-etag: W/"51-unf8cwaKGGOuFVkg0g6hDyHeGys"
+content-length: 35
+etag: W/"23-Byq1FlqgrTBb4kyl5QL0GpKiN3g"
 vary: Accept-Encoding
-date: Fri, 05 Jan 2024 09:50:42 GMT
+date: Sat, 06 Jan 2024 02:13:34 GMT
 connection: close
