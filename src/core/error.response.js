@@ -4,12 +4,14 @@ const StatusCodeError = {
     CONFLICT: 409,
     EXSIST: 403,
     CREATED_FAIL: 400,
+    NOT_FOUND: 404,
 }
 
 const MessageError = {
     CONFLICT: 'Conflict',
     EXSIST: 'Exsist',
     CREATED_FAIL: 'Created fail',
+    NOT_FOUND: 'Not found',
 }
 
 class ErrorResponse extends Error {
@@ -37,8 +39,15 @@ class CreatedFailError extends ErrorResponse {
   }
 }
 
+class NotFoundError extends ErrorResponse {
+  constructor(message = StatusCodeMessage.NOT_FOUND, statusCode = StatusCodeError.NOT_FOUND) {
+    super(statusCode, message);
+  }
+}
+
 module.exports = {
     ConflictError,
     ExsistError,
-    CreatedFailError
+    CreatedFailError,
+    NotFoundError
 }

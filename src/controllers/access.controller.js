@@ -10,6 +10,13 @@ class AccessController {
             metadata: await accessService.signUp(req.body) 
         }).send(res)
     }
+
+    login = async (req, res, next) => {
+        new Created({ 
+            message: 'User logged', 
+            metadata: await accessService.login(req.body) 
+        }).send(res)
+    }
 }
 
 module.exports = new AccessController

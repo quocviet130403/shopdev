@@ -11,6 +11,11 @@ const createTokenPair = async (payload, publicKey, privateKey) => {
             algorithm: 'RS256',
             expiresIn: '7 days'
         });
+        await jwt.verify(accessToken, publicKey).then(() => {
+            console.log('verify access token success');
+        }).catch((error) => {
+            console.log('verify access token error', error);
+        });
         return {
             accessToken,
             refreshToken
