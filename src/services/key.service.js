@@ -19,7 +19,16 @@ class KeyService {
 
             return tokens ? tokens.publicKey : null
         } catch (error) {
-            return error
+            throw error
+        }
+    }
+
+    async findByUserId(userId) {
+        try {
+            const keyStore = await keytokenModel.findOne({user: userId})
+            return keyStore ? keyStore : null
+        } catch (error) {
+            throw error
         }
     }
 }

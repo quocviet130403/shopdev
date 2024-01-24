@@ -22,10 +22,10 @@ x-frame-options: SAMEORIGIN
 x-permitted-cross-domain-policies: none
 x-xss-protection: 0
 content-type: application/json; charset=utf-8
-etag: W/"797-D+b+zXYcqiMScRQBqgpkaz7yRRY"
+etag: W/"797-dJfl0D2kEjbqA3D0dHXr3utH79k"
 vary: Accept-Encoding
 content-encoding: gzip
-date: Wed, 24 Jan 2024 07:04:21 GMT
+date: Wed, 24 Jan 2024 09:32:53 GMT
 connection: close
 transfer-encoding: chunked
 ###
@@ -37,8 +37,14 @@ Content-Type: application/json
     "email": "shopdev20@gmail.com",
     "password": "vietdz1304"
 }
+###
+POST {{url_dev}}/auth/logout
+Content-Type: application/json
+x-api-key: 123
+x-client-id: 6597d0069a8715c361684c89
+authorization: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTk3ZDAwNjlhODcxNWMzNjE2ODRjODkiLCJlbWFpbCI6InNob3BkZXYyMEBnbWFpbC5jb20iLCJpYXQiOjE3MDYwODg3NzMsImV4cCI6MTcwNjI2MTU3M30.HFdU0Gb45_b6ytVGlJ7KxGj5JFOzCJ0otzXKeplzO5O9UIkKLiPL8VfRhHyaDsAK2JZKs9ErBF2VkZixOS-1l8780OJEAEDgKhl8yr63qeOORvZEIjHE7G235x2uJo3w__raFMb5O-EB9lNNpU4UOPaZdhb78v5yKFRehw7l4jv0U3cPFqXv_4_-IrANPryRa2sZNioulbjAi8QDpoA6ywx_rLyq8gFA3zomARJSdOa84dLga0_MXq7XNWtakbvss20hX5_r5BNeTQPCQKVnpF67qPUNdJ8DKLp6a6IhbhWRNiA6juiv7bv50ldAYY8Kx14zfiyjoUBVAyLnqIaKhLGEpD9hhgW8QjLm8A1nbFPXbhOez4lMBY9cUDH9FMBloXLGPrzoAdS-rn4W7xpNcpMAcDc0t-VFPTtrJ-8nfMO5QpRnND-2yyIoV-7nOJEPpQRizjjWQ1LsrNPD_9Ya3L1jvJofYPjC11i1SCaiGtht934Q4be3sPbdN9GMUwxSwAm0S6qFaQk_XHCSsE9fTzjlUCV5Wg5wIG0RG7Paw_SCUZODspBgc9pLv5ASM5o2aZW0H1LbKVorBV4k_yPCSH9Zq1Pu-I45bmxUAJT9iy8KRnFAVRpeXA9kALpYW4JVBYCrSEd-j4GCogrjmGHZwq_6dH_LjOgxfS6JojZzVTk
 
-HTTP/1.1 403  - Forbidden
+HTTP/1.1 401  - Unauthorized
 content-security-policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests
 cross-origin-opener-policy: same-origin
 cross-origin-resource-policy: same-origin
@@ -52,8 +58,8 @@ x-frame-options: SAMEORIGIN
 x-permitted-cross-domain-policies: none
 x-xss-protection: 0
 content-type: application/json; charset=utf-8
-content-length: 48
-etag: W/"30-D7KN/32IbRBgzIU1iZ2jDey32Ec"
+content-length: 38
+etag: W/"26-NVPAqdv5mEKmIs/PuZLT2J3Clxc"
 vary: Accept-Encoding
-date: Sat, 06 Jan 2024 02:22:11 GMT
+date: Wed, 24 Jan 2024 09:49:25 GMT
 connection: close

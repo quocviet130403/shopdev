@@ -5,6 +5,7 @@ const StatusCodeError = {
     EXSIST: 403,
     CREATED_FAIL: 400,
     NOT_FOUND: 404,
+    AUTH_FAILED: 401
 }
 
 const MessageError = {
@@ -12,6 +13,7 @@ const MessageError = {
     EXSIST: 'Exsist',
     CREATED_FAIL: 'Created fail',
     NOT_FOUND: 'Not found',
+    AUTH_FAILED: 'Auth failed'
 }
 
 class ErrorResponse extends Error {
@@ -45,9 +47,16 @@ class NotFoundError extends ErrorResponse {
   }
 }
 
+class AuthFailed extends ErrorResponse {
+  constructor(message = StatusCodeMessage.AUTH_FAILED, statusCode = StatusCodeError.AUTH_FAILED) {
+    super(statusCode, message);
+  }
+}
+
 module.exports = {
     ConflictError,
     ExsistError,
     CreatedFailError,
-    NotFoundError
+    NotFoundError,
+    AuthFailed
 }

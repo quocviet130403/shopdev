@@ -8,6 +8,7 @@ const { createTokenPair } = require("../auth/authUltils");
 const keyService = require("./key.service");
 const { ConflictError, ExsistError, CreatedFailError, NotFoundError } = require("../core/error.response");
 const shopService = require("./shop.service");
+const keytokenModel = require("../models/keytoken.model");
 
 const roleShop = {
     SHOP: 'SHOP',
@@ -107,6 +108,14 @@ class AccessService {
                     tokens
                 }
             }
+        }
+    }
+    async logout({_id}) {
+        const keyStore = await keytokenModel.deleteOne({_id: _id})
+        return {
+            code: 200,
+            messange: 'Logout Success!!!',
+            metadata: keyStore
         }
     }
 }
