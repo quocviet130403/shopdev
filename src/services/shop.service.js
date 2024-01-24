@@ -4,8 +4,8 @@ const shopModel = require("../models/shop.model");
 
 class ShopService {
     async findByEmail(email) {
-        const email = await shopModel.findOne({email: email}).lean();
-        return email ? email : null;
+        const shop = await shopModel.findOne({email: email}).lean();
+        return shop ? shop : null;
     }
 }
 
