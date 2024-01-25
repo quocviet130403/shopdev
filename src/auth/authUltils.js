@@ -3,12 +3,7 @@ const jwt = require('jsonwebtoken');
 const asynHandler = require('../helpers/asynHandler');
 const { NotFoundError, AuthFailed } = require('../core/error.response');
 const keyService = require('../services/key.service');
-
-const HEADER = {
-    API_KEY: 'x-api-key',
-    CLIENT_ID: 'x-client-id',
-    AUTHORIZATION: 'authorization'
-}
+const HEADER = require('../core/headers');
 
 const createTokenPair = async (payload, publicKey, privateKey) => {
     try {
@@ -33,6 +28,7 @@ const createTokenPair = async (payload, publicKey, privateKey) => {
 const authentication = asynHandler(async (req, res, next) => {
     const userId = req.headers[HEADER.CLIENT_ID];
     const authorization = req.headers[HEADER.AUTHORIZATION];
+
     if (!userId || !authorization) throw new NotFoundError('Missed params headers');
 
     const keyStore = await keyService.findByUserId(userId);
@@ -40,7 +36,7 @@ const authentication = asynHandler(async (req, res, next) => {
 
     try {
         const decodeShop = await jwt.verify(authorization, keyStore.publicKey);
-        if (decodeShop.userId !== userId) throw new AuthFailed('Invalid User')
+        if (decodeShop && decodeShop.userId !== userId) throw new AuthFailed('Invalid User')
         req.keyStore = keyStore;
         return next();
     } catch (error) {

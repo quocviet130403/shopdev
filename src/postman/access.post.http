@@ -22,29 +22,18 @@ x-frame-options: SAMEORIGIN
 x-permitted-cross-domain-policies: none
 x-xss-protection: 0
 content-type: application/json; charset=utf-8
-etag: W/"797-dJfl0D2kEjbqA3D0dHXr3utH79k"
+etag: W/"797-CUjZd/n2vb4F7Smj/twxTnNyfk0"
 vary: Accept-Encoding
 content-encoding: gzip
-date: Wed, 24 Jan 2024 09:32:53 GMT
+date: Thu, 25 Jan 2024 06:40:48 GMT
 connection: close
 transfer-encoding: chunked
 ###
+POST {{url_dev}}/auth/refreshToken
+x-client-id: 65b20267c702ae68e9f12c52
+refresh-token: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWIyMDI2N2M3MDJhZTY4ZTlmMTJjNTIiLCJlbWFpbCI6InNob3BkZXYyMEBnbWFpbC5jb20iLCJpYXQiOjE3MDYxNjQ4NDgsImV4cCI6MTcwNjc2OTY0OH0.rcdJDsKe_TUBrIOzi-S63VMttYszm_gPUdmU4sPSVmNieGE-4JtNBbaiFAyxEmbJlgO9gpApuOU2EuISHKALqQaVKP2ZNE5NPEFDW90Cn4UXCWozjPLpAtHw9VG-rNjBsSPnALXMnvBZ5urRj7EJxNa4hUZbrjpmBtf3yRbN92cSApvSgs5MGo5wlXAwuWefPa-nNLjHBL3NJNsoDv4ZHKwi1Rk9fuWzMoFkPVZ4kaHM5g_fa1k-3X347pbxDpBFQFmBv0bHN00x7GcS-jRG5pQUBAra4rM89wzClUPdCJtN8YCb-bli3Hnkjd_IaO3nQdGjvCbFcdC_LLrPgjtjAQ5kYVuuh0ZhL5SzPxBvgiWGVQV3rOhQHMobeYj9nH_zwrPSlOLevMCz9w-6DvLb-_wfvV_eyldtQenmwzUy7JI7QdnbzAYGWwo5SgkdGo7dsfTnF5Gg7fRji-usU_9F-T6If6Xtx_IVokeARNq3iwYHFLFmXfieoA0BasOP3HvnhW8sdfUBOOLsz_8q8jX5gn6yqQ1I-ELeiW7FUdWAqztKNgSABqscV3MvcNpZ9AZ7GzwQR_G3dkK8bMQYoImQdPVn4CoaeK1MQ4dSalhlR5Q9tg1tv98gb6mrZZXMkJ-fkMufoMzZvlHrxrpfQsb8ql5lTcHp1HVo5ooG_s809-0
 
-POST {{url_dev}}/auth/signUp
-Content-Type: application/json
-{
-    "name": "shopDev20",
-    "email": "shopdev20@gmail.com",
-    "password": "vietdz1304"
-}
-###
-POST {{url_dev}}/auth/logout
-Content-Type: application/json
-x-api-key: 123
-x-client-id: 6597d0069a8715c361684c89
-authorization: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTk3ZDAwNjlhODcxNWMzNjE2ODRjODkiLCJlbWFpbCI6InNob3BkZXYyMEBnbWFpbC5jb20iLCJpYXQiOjE3MDYwODg3NzMsImV4cCI6MTcwNjI2MTU3M30.HFdU0Gb45_b6ytVGlJ7KxGj5JFOzCJ0otzXKeplzO5O9UIkKLiPL8VfRhHyaDsAK2JZKs9ErBF2VkZixOS-1l8780OJEAEDgKhl8yr63qeOORvZEIjHE7G235x2uJo3w__raFMb5O-EB9lNNpU4UOPaZdhb78v5yKFRehw7l4jv0U3cPFqXv_4_-IrANPryRa2sZNioulbjAi8QDpoA6ywx_rLyq8gFA3zomARJSdOa84dLga0_MXq7XNWtakbvss20hX5_r5BNeTQPCQKVnpF67qPUNdJ8DKLp6a6IhbhWRNiA6juiv7bv50ldAYY8Kx14zfiyjoUBVAyLnqIaKhLGEpD9hhgW8QjLm8A1nbFPXbhOez4lMBY9cUDH9FMBloXLGPrzoAdS-rn4W7xpNcpMAcDc0t-VFPTtrJ-8nfMO5QpRnND-2yyIoV-7nOJEPpQRizjjWQ1LsrNPD_9Ya3L1jvJofYPjC11i1SCaiGtht934Q4be3sPbdN9GMUwxSwAm0S6qFaQk_XHCSsE9fTzjlUCV5Wg5wIG0RG7Paw_SCUZODspBgc9pLv5ASM5o2aZW0H1LbKVorBV4k_yPCSH9Zq1Pu-I45bmxUAJT9iy8KRnFAVRpeXA9kALpYW4JVBYCrSEd-j4GCogrjmGHZwq_6dH_LjOgxfS6JojZzVTk
-
-HTTP/1.1 401  - Unauthorized
+HTTP/1.1 200  - OK
 content-security-policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests
 cross-origin-opener-policy: same-origin
 cross-origin-resource-policy: same-origin
@@ -58,8 +47,45 @@ x-frame-options: SAMEORIGIN
 x-permitted-cross-domain-policies: none
 x-xss-protection: 0
 content-type: application/json; charset=utf-8
-content-length: 38
-etag: W/"26-NVPAqdv5mEKmIs/PuZLT2J3Clxc"
+etag: W/"744-V+SAx/AOXQ9ryqrj2D5RTKPEx5Y"
 vary: Accept-Encoding
-date: Wed, 24 Jan 2024 09:49:25 GMT
+content-encoding: gzip
+date: Thu, 25 Jan 2024 06:41:16 GMT
 connection: close
+transfer-encoding: chunked
+###
+
+POST {{url_dev}}/auth/signUp
+Content-Type: application/json
+{
+    "name": "shopDev20",
+    "email": "shopdev20@gmail.com",
+    "password": "vietdz1304"
+}
+
+HTTP/1.1 200  - OK
+content-security-policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests
+cross-origin-opener-policy: same-origin
+cross-origin-resource-policy: same-origin
+origin-agent-cluster: ?1
+referrer-policy: no-referrer
+strict-transport-security: max-age=15552000; includeSubDomains
+x-content-type-options: nosniff
+x-dns-prefetch-control: off
+x-download-options: noopen
+x-frame-options: SAMEORIGIN
+x-permitted-cross-domain-policies: none
+x-xss-protection: 0
+content-type: application/json; charset=utf-8
+etag: W/"799-YCtMCnKCePfqRu+esqP8PTH2YwY"
+vary: Accept-Encoding
+content-encoding: gzip
+date: Thu, 25 Jan 2024 06:40:41 GMT
+connection: close
+transfer-encoding: chunked
+###
+POST {{url_dev}}/auth/logout
+Content-Type: application/json
+x-api-key: 123
+x-client-id: 6597d0069a8715c361684c89
+authorization: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTk3ZDAwNjlhODcxNWMzNjE2ODRjODkiLCJlbWFpbCI6InNob3BkZXYyMEBnbWFpbC5jb20iLCJpYXQiOjE3MDYwODg3NzMsImV4cCI6MTcwNjI2MTU3M30.HFdU0Gb45_b6ytVGlJ7KxGj5JFOzCJ0otzXKeplzO5O9UIkKLiPL8VfRhHyaDsAK2JZKs9ErBF2VkZixOS-1l8780OJEAEDgKhl8yr63qeOORvZEIjHE7G235x2uJo3w__raFMb5O-EB9lNNpU4UOPaZdhb78v5yKFRehw7l4jv0U3cPFqXv_4_-IrANPryRa2sZNioulbjAi8QDpoA6ywx_rLyq8gFA3zomARJSdOa84dLga0_MXq7XNWtakbvss20hX5_r5BNeTQPCQKVnpF67qPUNdJ8DKLp6a6IhbhWRNiA6juiv7bv50ldAYY8Kx14zfiyjoUBVAyLnqIaKhLGEpD9hhgW8QjLm8A1nbFPXbhOez4lMBY9cUDH9FMBloXLGPrzoAdS-rn4W7xpNcpMAcDc0t-VFPTtrJ-8nfMO5QpRnND-2yyIoV-7nOJEPpQRizjjWQ1LsrNPD_9Ya3L1jvJofYPjC11i1SCaiGtht934Q4be3sPbdN9GMUwxSwAm0S6qFaQk_XHCSsE9fTzjlUCV5Wg5wIG0RG7Paw_SCUZODspBgc9pLv5ASM5o2aZW0H1LbKVorBV4k_yPCSH9Zq1Pu-I45bmxUAJT9iy8KRnFAVRpeXA9kALpYW4JVBYCrSEd-j4GCogrjmGHZwq_6dH_LjOgxfS6JojZzVTk

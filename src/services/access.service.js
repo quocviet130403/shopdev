@@ -6,9 +6,10 @@ const crypto = require('crypto');
 const { getInfoData } = require("../utils");
 const { createTokenPair } = require("../auth/authUltils");
 const keyService = require("./key.service");
-const { ConflictError, ExsistError, CreatedFailError, NotFoundError } = require("../core/error.response");
+const { ConflictError, ExsistError, CreatedFailError, NotFoundError, AuthFailed } = require("../core/error.response");
 const shopService = require("./shop.service");
 const keytokenModel = require("../models/keytoken.model");
+const jwt = require('jsonwebtoken');
 
 const roleShop = {
     SHOP: 'SHOP',
@@ -31,11 +32,13 @@ class AccessService {
             modulusLength: 4096,
             publicKeyEncoding: {
                 type: 'pkcs1',
-                format: 'pem'
+                format: 'pem',
+                days: '2 days'
             },
             privateKeyEncoding: {
                 type: 'pkcs1',
                 format: 'pem',
+                days: '7 days'
             }
         })
 
@@ -43,7 +46,7 @@ class AccessService {
         const publicKeyObject = await crypto.createPublicKey(publicKey.toString())
 
         const tokens = await createTokenPair({userId: shop._id, email}, publicKeyObject, privateKey)
-        console.log(tokens)
+        // console.log(tokens)
 
         await keyService.createKeyToken({
             userId: shop._id,
@@ -89,7 +92,7 @@ class AccessService {
 
             const publicKeyString = await keyService.createKeyToken({
                 userId: newShop._id,
-                publicKey: publicKey
+                publicKey: publicKey,
             })
 
             if (!publicKeyString) {
@@ -116,6 +119,54 @@ class AccessService {
             code: 200,
             messange: 'Logout Success!!!',
             metadata: keyStore
+        }
+    }
+
+    async refreshToken(userId, refreshToken) {
+        const refreshTokenStore = await keyService.findByRefreshToken(refreshToken);
+        if (!refreshTokenStore) throw new AuthFailed('Invalid Refresh Token');
+
+        const decodeShop = await jwt.verify(refreshToken, refreshTokenStore.publicKey);
+        if (decodeShop && decodeShop.userId !== userId) throw new AuthFailed('Invalid User')
+
+        const checkRefreshTokenUsed = await keyService.checkRefreshTokenUsed(refreshToken);
+        if (checkRefreshTokenUsed) {
+            await keyService.removeRefreshToken(refreshToken);
+            throw new AuthFailed('Pls login again!!!');
+        }
+
+        const {privateKey, publicKey} = crypto.generateKeyPairSync('rsa', {
+            modulusLength: 4096,
+            publicKeyEncoding: {
+                type: 'pkcs1',
+                format: 'pem',
+                days: '2 days'
+            },
+            privateKeyEncoding: {
+                type: 'pkcs1',
+                format: 'pem',
+                days: '7 days'
+            }
+        })
+
+        const publicKeyString = publicKey.toString()
+        const publicKeyObject = await crypto.createPublicKey(publicKey.toString())
+
+        const tokens = await createTokenPair({userId: userId, email: decodeShop.email}, publicKeyObject, privateKey)
+
+        await keyService.createKeyToken({
+            userId: userId,
+            publicKey: publicKeyString,
+            refreshToken: tokens.refreshToken,
+            refreshTokenUsed: refreshToken
+        })
+
+        return {
+            code: 200,
+            messange: 'Refresh Token Success!!!',
+            metadata: {
+                tokens
+            }
         }
     }
 }

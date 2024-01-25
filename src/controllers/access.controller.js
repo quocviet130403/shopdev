@@ -1,5 +1,7 @@
 'use strict'
 
+const { NotFoundError } = require("../core/error.response")
+const HEADER = require("../core/headers")
 const { Created } = require("../core/success.error")
 const accessService = require("../services/access.service")
 
@@ -22,6 +24,18 @@ class AccessController {
         new Created({ 
             message: 'User logged out', 
             metadata: await accessService.logout(req.keyStore) 
+        }).send(res)
+    }
+
+    refreshToken = async (req, res) => {
+        const refreshToken = req.headers[HEADER.REFRESH_TOKEN];
+        const userId = req.headers[HEADER.CLIENT_ID];
+
+        if (!userId || !refreshToken) throw new NotFoundError('Missed params headers');
+
+        new Created({
+            message: 'Refresh token',
+            metadata: await accessService.refreshToken(userId, refreshToken)
         }).send(res)
     }
 }
