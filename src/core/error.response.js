@@ -5,7 +5,8 @@ const StatusCodeError = {
     EXSIST: 403,
     CREATED_FAIL: 400,
     NOT_FOUND: 404,
-    AUTH_FAILED: 401
+    AUTH_FAILED: 401,
+    BAD_REQUEST: 400
 }
 
 const MessageError = {
@@ -13,7 +14,8 @@ const MessageError = {
     EXSIST: 'Exsist',
     CREATED_FAIL: 'Created fail',
     NOT_FOUND: 'Not found',
-    AUTH_FAILED: 'Auth failed'
+    AUTH_FAILED: 'Auth failed',
+    BAD_REQUEST: 'Bad request'
 }
 
 class ErrorResponse extends Error {
@@ -53,10 +55,17 @@ class AuthFailed extends ErrorResponse {
   }
 }
 
+class BadRequest extends ErrorResponse {
+  constructor(message = StatusCodeMessage.BAD_REQUEST, statusCode = StatusCodeError.BAD_REQUEST) {
+    super(statusCode, message);
+  }
+}
+
 module.exports = {
     ConflictError,
     ExsistError,
     CreatedFailError,
     NotFoundError,
-    AuthFailed
+    AuthFailed,
+    BadRequest
 }

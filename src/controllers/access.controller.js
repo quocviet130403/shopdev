@@ -2,7 +2,7 @@
 
 const { NotFoundError } = require("../core/error.response")
 const HEADER = require("../core/headers")
-const { Created } = require("../core/success.error")
+const { Created, Ok } = require("../core/success.error")
 const accessService = require("../services/access.service")
 
 class AccessController {
@@ -14,14 +14,14 @@ class AccessController {
     }
 
     login = async (req, res) => {
-        new Created({ 
+        new Ok({ 
             message: 'User logged', 
             metadata: await accessService.login(req.body) 
         }).send(res)
     }
 
     logout = async (req, res) => {
-        new Created({ 
+        new Ok({ 
             message: 'User logged out', 
             metadata: await accessService.logout(req.keyStore) 
         }).send(res)
@@ -33,7 +33,7 @@ class AccessController {
 
         if (!userId || !refreshToken) throw new NotFoundError('Missed params headers');
 
-        new Created({
+        new Ok({
             message: 'Refresh token',
             metadata: await accessService.refreshToken(userId, refreshToken)
         }).send(res)

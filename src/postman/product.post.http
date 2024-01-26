@@ -1,0 +1,10 @@
+@url_dev=http://localhost:3000/api/v1/product
+###
+POST {{url_dev}}/create
+x-api-key: 123456
+x-client-id: 65b20267c702ae68e9f12c52
+authorization: 123456
+Content-Type: application/json
+{
+    
+}
