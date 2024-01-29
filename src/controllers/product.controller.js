@@ -8,7 +8,10 @@ class ProductController {
         signUp = async (req, res) => {
             new Created({ 
                 message: 'User created', 
-                metadata: await productService.createProduct(req.body.type, req.body) 
+                metadata: await productService.createProduct(req.body.type, {
+                    ...req.body,
+                    product_shop: req.userId
+                }) 
             }).send(res)
         }
     }

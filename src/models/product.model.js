@@ -49,6 +49,10 @@ const clothingSchema = new Schema({
         required: true,
         enum: ['S', 'M', 'L', 'XL']
     },
+    product_shop: {
+        type: Schema.Types.ObjectId,
+        ref: 'Shop',
+    },
     brand: {
         type: String,
         required: true
@@ -60,6 +64,10 @@ const electronicsSchema = new Schema({
     brand: {
         type: String,
         required: true
+    },
+    product_shop: {
+        type: Schema.Types.ObjectId,
+        ref: 'Shop',
     },
     material: String
 });
