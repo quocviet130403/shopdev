@@ -1,0 +1,4 @@
+@url_dev=http://localhost:3000/api/v1/product
+@authorization=123
+@x_client_id=123
+@x_api_key=123

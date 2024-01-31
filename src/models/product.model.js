@@ -12,7 +12,6 @@ const productSchema = new Schema({
     },
     product_slug: {
         type: String,
-        required: true
     },
     product_thumbnail: {
         type: String,
@@ -68,7 +67,8 @@ const productSchema = new Schema({
 });
 
 // Indexes
-// productSchema.index({product_name: 'text', product_description: 'text'})
+// productSchema.index({isDraft: 1, isPublished: 1, product_shop: 1})
+productSchema.index({ product_name: 'text', product_description: 'text'})
 
 // Action after save
 productSchema.pre('save', function (next) {

@@ -1,6 +1,6 @@
 'use strict'
 
-const { Created } = require("../core/success.error")
+const { Created, Ok } = require("../core/success.error")
 const productService = require("../services/product.service")
 
 class ProductController {
@@ -11,6 +11,41 @@ class ProductController {
                 ...req.body,
                 product_shop: req.userId
             }) 
+        }).send(res)
+    }
+
+    async getAllDraftsForShop(req, res, next) {
+        new Ok({ 
+            message: 'Get All Drafts Successfully', 
+            metadata: await productService.getAllDraftsForShop(req.userId) 
+        }).send(res)
+    }
+
+    async getAllPublishedForShop(req, res, next) {
+        new Ok({ 
+            message: 'Get All Published Successfully', 
+            metadata: await productService.getAllPublishedForShop(req.userId) 
+        }).send(res)
+    }
+
+    async publishedProductShop(req, res, next) {
+        new Ok({ 
+            message: 'Published Product Successfully', 
+            metadata: await productService.publishedProductShop(req.params.id, req.userId) 
+        }).send(res)
+    }
+
+    async draftProductShop(req, res, next) {
+        new Ok({ 
+            message: 'Draft Product Successfully', 
+            metadata: await productService.draftProductShop(req.params.id, req.userId) 
+        }).send(res)
+    }
+
+    async searchProduct(req, res, next) {
+        new Ok({ 
+            message: 'Search Product Successfully', 
+            metadata: await productService.searchProduct(req.params.searchKey, req.userId) 
         }).send(res)
     }
 }

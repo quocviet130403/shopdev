@@ -27,14 +27,14 @@ class SuccessResponse {
 }
 
 class Ok extends SuccessResponse {
-    constructor({messange, metadata}) {
-        super({messange, metadata});
+    constructor({message, metadata}) {
+        super({message, metadata});
     }
 }
 
 class Created extends SuccessResponse {
-    constructor({messange, metadata}) {
-        super({messange, metadata});
+    constructor({message, metadata}) {
+        super({message, metadata});
     }
 }
 

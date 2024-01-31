@@ -2,6 +2,7 @@
 
 const { BadRequest } = require("../core/error.response");
 const { product, clothing, electronic } = require("../models/product.model");
+const ProductRepository = require("../models/repositories/product.repo")
 
 class ProductFactory {
 
@@ -16,6 +17,26 @@ class ProductFactory {
         if (!Product) throw new BadRequest('Product type not found.')
 
         return await new Product(payload).createProduct()
+    }
+
+    async getAllDraftsForShop(product_shop) {
+        return await ProductRepository.getAllDraftsForShop({ query: { isDraft: true, product_shop }})
+    }
+
+    async getAllPublishedForShop(product_shop) {
+        return await ProductRepository.getAllPublishedForShop({ query: { isPublished: true, product_shop }})
+    }
+
+    async publishedProductShop(product_id, product_shop) {
+        return await ProductRepository.publishProductShop({ _id: product_id, product_shop })
+    }
+
+    async draftProductShop(product_id, product_shop) {
+        return await ProductRepository.draftProductShop({ _id: product_id, product_shop })
+    }
+
+    async searchProduct(searchKey, product_shop) {
+        return await ProductRepository.searchProduct({searchKey, product_shop})
     }
 }
 
