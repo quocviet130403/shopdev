@@ -1,11 +1,16 @@
 'use strict'
 
 const {Schema, model} = require('mongoose'); // Erase if already required
+const slugify = require('slugify');
 
 const DOCUMENT_NAME = 'Product';
 const COLLECTION = 'Products';
 const productSchema = new Schema({
     product_name: {
+        type: String,
+        required: true
+    },
+    product_slug: {
         type: String,
         required: true
     },
@@ -37,11 +42,39 @@ const productSchema = new Schema({
     product_attributes: {
         type: Schema.Types.Mixed,
         required: true
-    }
+    },
+    product_rating: {
+        type: Number,
+        default: 4.5,
+        min: [1, 'Rating must be at least 1'],
+        max: [5, 'Rating must can not be more than 5'],
+        set: val => Math.round(val * 5) / 5
+    },
+    isDraft: {
+        type: Boolean,
+        default: true,
+        index: true,
+        select: false
+    },
+    isPublished: {
+        type: Boolean,
+        default: false,
+        index: true,
+        select: false
+    },
 }, {
     timestamps: true,
     collection: COLLECTION
 });
+
+// Indexes
+// productSchema.index({product_name: 'text', product_description: 'text'})
+
+// Action after save
+productSchema.pre('save', function (next) {
+    this.product_slug = slugify(this.product_name, {lower: true})
+    next()
+})
 
 const clothingSchema = new Schema({
     size: {

@@ -20,7 +20,7 @@ class ProductFactory {
 }
 
 class Product {
-    constructor(
+    constructor({
         product_name,
         product_thumbnail,
         product_description,
@@ -29,7 +29,7 @@ class Product {
         product_type,
         product_shop,
         product_attributes
-    ) {
+    }) {
         this.product_name = product_name;
         this.product_thumbnail = product_thumbnail;
         this.product_description = product_description;
@@ -50,7 +50,7 @@ class Product {
 
 class Clothing extends Product {
     async createProduct() {
-        const newClothing = clothing.create({
+        const newClothing = await clothing.create({
             ...this.product_attributes,
             product_shop: this.product_shop
         })
@@ -66,12 +66,11 @@ class Clothing extends Product {
 class Electronics extends Product {
     async createProduct() {
 
-        const newElectronic = electronic.create({
+        const newElectronic = await electronic.create({
             ...this.product_attributes,
             product_shop: this.product_shop
         })
         if (!newElectronic) throw new BadRequest('Create electronic failed.')
-
         const newProduct = super.createProduct(newElectronic._id)
         if (!newProduct) throw new BadRequest('Create product failed.')
 
@@ -79,7 +78,7 @@ class Electronics extends Product {
     }
 }
 
-ProductFactory.registerProduct('clothing', Clothing)
-ProductFactory.registerProduct('electronics', Electronics)
+ProductFactory.registerProduct('Clothing', Clothing)
+ProductFactory.registerProduct('Electronics', Electronics)
 
 module.exports = new ProductFactory();
