@@ -45,7 +45,21 @@ class ProductController {
     async searchProduct(req, res, next) {
         new Ok({ 
             message: 'Search Product Successfully', 
-            metadata: await productService.searchProduct(req.params.searchKey, req.userId) 
+            metadata: await productService.searchProduct(req.params.searchKey) 
+        }).send(res)
+    }
+
+    async findAllProduct(req, res, next) {
+        new Ok({ 
+            message: 'Find All Product Successfully', 
+            metadata: await productService.findAllProduct(req.query)
+        }).send(res)
+    }
+
+    async findOneProduct(req, res, next) {
+        new Ok({
+            message: 'Find One Product Successfully',
+            metadata: await productService.findOneProduct(req.params.id)
         }).send(res)
     }
 }

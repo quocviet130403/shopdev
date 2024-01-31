@@ -35,8 +35,20 @@ class ProductFactory {
         return await ProductRepository.draftProductShop({ _id: product_id, product_shop })
     }
 
-    async searchProduct(searchKey, product_shop) {
-        return await ProductRepository.searchProduct({searchKey, product_shop})
+    async searchProduct(searchKey) {
+        return await ProductRepository.searchProduct({searchKey, select: ['product_name', 'product_slug', 'product_thumbnail', 'product_price']})
+    }
+
+    async findAllProduct({ limit = 50, sort = 'ctime', page = 1, filter = {isPublished: true} }) {
+        page = (page - 1) * limit
+        sort = sort === 'ctime' ? {_id: 1} : {_id: -1}
+        return await ProductRepository.findAllProduct(
+            {limit, sort, page, filter, select: ['product_name', 'product_slug', 'product_thumbnail', 'product_price']}
+        )
+    }
+
+    async findOneProduct(product_id) {
+        return await ProductRepository.findOneProduct({product_id, select: ['__v']})
     }
 }
 

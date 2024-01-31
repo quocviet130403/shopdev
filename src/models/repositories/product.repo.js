@@ -1,3 +1,4 @@
+const { selectFields, unSelectFields } = require("../../utils")
 const { product } = require("../product.model")
 
 class ProductRepository {
@@ -43,16 +44,33 @@ class ProductRepository {
         return modifiedCount
     }
 
-    async searchProduct ({searchKey, product_shop}) {
+    async searchProduct ({searchKey, select}) {
         const regexSearch = new RegExp(searchKey)
         return await product.find({
             $text: { $search: regexSearch },
-            isPublished: true,
-            product_shop
+            isPublished: true
         }, { score: { $meta: "textScore" }})
         .sort({ score: { $meta: "textScore" } })
+        .select(selectFields(select))
         .lean()
     }
+
+    async findAllProduct ({limit, sort, page, filter, select}) {
+        return await product.find(filter)
+                .sort(sort)
+                .skip(page)
+                .limit(limit)
+                .select(selectFields(select))
+                .lean()
+    }
+
+    async findOneProduct ({product_id, select}) {
+        return await product.find({
+            _id: product_id,
+            isPublished: true
+        }).select(unSelectFields(select)).lean()
+    }
+
 }
 
 module.exports = new ProductRepository()
