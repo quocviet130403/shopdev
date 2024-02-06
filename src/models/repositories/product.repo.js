@@ -1,4 +1,4 @@
-const { selectFields, unSelectFields } = require("../../utils")
+const { selectFields, unSelectFields, updateNestedObjectParser } = require("../../utils")
 const { product } = require("../product.model")
 
 class ProductRepository {
@@ -69,6 +69,12 @@ class ProductRepository {
             _id: product_id,
             isPublished: true
         }).select(unSelectFields(select)).lean()
+    }
+
+    async updateProduct (product_id, payload, model, isNew = true) {
+        return await model.findByIdAndUpdate(
+            product_id, updateNestedObjectParser(payload), {new: isNew}
+        )
     }
 
 }

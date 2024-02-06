@@ -2,7 +2,8 @@
 
 const { BadRequest } = require("../core/error.response");
 const { product, clothing, electronic } = require("../models/product.model");
-const ProductRepository = require("../models/repositories/product.repo")
+const ProductRepository = require("../models/repositories/product.repo");
+const { removeUndefinedObject, updateNestedObjectParser } = require("../utils");
 
 class ProductFactory {
 
@@ -17,6 +18,16 @@ class ProductFactory {
         if (!Product) throw new BadRequest('Product type not found.')
 
         return await new Product(payload).createProduct()
+    }
+
+    async updateProduct(product_id, payload) {
+        const productExist = await product.findOne({_id: product_id})
+        if (!productExist) throw new BadRequest('Product not found.')
+        
+        const Product = ProductFactory.listProductRegister[productExist.product_type]
+        if (!Product) throw new BadRequest('Product type not found.')
+
+        return await new Product(payload).updateProduct(product_id)
     }
 
     async getAllDraftsForShop(product_shop) {
@@ -79,6 +90,10 @@ class Product {
             _id: product_id
         })
     }
+
+    async updateProduct(product_id) {
+        return ProductRepository.updateProduct(product_id, updateNestedObjectParser(this), product)
+    }
 }
 
 class Clothing extends Product {
@@ -94,6 +109,18 @@ class Clothing extends Product {
 
         return newProduct
     }
+
+    async updateProduct(product_id) {
+        const dataUpdate = updateNestedObjectParser(this)
+        if (dataUpdate.product_attributes) {
+            const clothingUpdate = ProductRepository.updateProduct(product_id, dataUpdate.product_attributes, clothing)
+            if (!clothingUpdate) throw new BadRequest('Update clothing failed.')
+        }
+        const updatedProduct = await super.updateProduct(product_id)
+        if (!updatedProduct) throw new BadRequest('Update product failed.')
+
+        return clothing
+    }
 }
 
 class Electronics extends Product {
@@ -108,6 +135,18 @@ class Electronics extends Product {
         if (!newProduct) throw new BadRequest('Create product failed.')
 
         return newProduct
+    }
+
+    async updateProduct(product_id) {
+        const dataUpdate = this
+        if (dataUpdate.product_attributes) {
+            const electronicUpdate = ProductRepository.updateProduct(product_id, dataUpdate.product_attributes, electronic)
+            if (!electronicUpdate) throw new BadRequest('Update electronic failed.')
+        }
+        const updatedProduct = await super.updateProduct(product_id)
+        if (!updatedProduct) throw new BadRequest('Update product failed.')
+
+        return updatedProduct
     }
 }
 

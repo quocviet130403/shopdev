@@ -62,6 +62,16 @@ class ProductController {
             metadata: await productService.findOneProduct(req.params.id)
         }).send(res)
     }
+
+    async updateProduct(req, res, next) {
+        new Ok({
+            message: 'Update Product Successfully',
+            metadata: await productService.updateProduct(req.params.id, {
+                ...req.body,
+                product_shop: req.userId
+            })
+        }).send(res)
+    }
 }
 
 module.exports = new ProductController()
