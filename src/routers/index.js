@@ -10,5 +10,6 @@ const path = '/api/v1'
 // router.use(perrmission('0000'));
 router.use(`${path}/auth`, require('./access/index.js'));
 router.use(`${path}/product`, require('./product/index.js'));
+router.use(`${path}/discount`, require('./discount/index.js'));
 
 module.exports = router
