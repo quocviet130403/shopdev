@@ -4,6 +4,7 @@ const { BadRequest } = require("../core/error.response");
 const discountModeldiscountModel = require("../models/discount.model");
 const ProductRepository = require("../models/repositories/product.repo");
 const DiscountRepository = require("../models/repositories/discount.repo");
+const discountModel = require("../models/discount.model");
 
 class DiscountService {
     async createDiscountCode({
@@ -12,17 +13,16 @@ class DiscountService {
         applies_to, product_ids
     }) {
         if (new Date() < new Date(start_date) || new Date() > new Date(end_date)) {
-            throw new BadRequest({ message: 'Invalid date range' });
+            throw new BadRequest('Invalid date range' );
         }
-
-        if (new Date(start_date) <= new Date(end_date)) {
-            throw new BadRequest({ message: 'Invalid date range' });
+        if (new Date(start_date) >= new Date(end_date)) {
+            throw new BadRequest('Invalid date range');
         }
 
         const discountExist = await DiscountRepository.findOneDiscountCode({ discount_code: code, discount_shopId: shopId })
-        if (discountExist) throw new BadRequest({ message: 'Discount code already exist' });
+        if (discountExist) throw new BadRequest('Discount code already exist' );
 
-        const discount = new discountModel({
+        const discount = await discountModel.create({
             discount_name: name,
             discount_description: description,
             discount_type: type,
@@ -46,12 +46,13 @@ class DiscountService {
     async findAllDiscountCodeWithProduct ({
         code, shopId, limit, page
     }) {
+
         const discount = await DiscountRepository.findOneDiscountCode({
             discount_code: code,
             discount_shopId: shopId
-        }).lean();
+        });
 
-        if (!discount) throw new BadRequest({ message: 'Discount code not found' });
+        if (!discount) throw new BadRequest('Discount code not found' );
         const { discount_applies_to,  discount_product_ids} = discount;
         let products = {};
         
@@ -84,14 +85,14 @@ class DiscountService {
     }
 
     async findAllDiscountCode ({
-        shopId, limit = 50, page = 1, sort = 'ctime', filter
+        limit = 50, page = 1, sort = 'ctime', filter
     }) {
         page = (page - 1) * limit
         sort = sort === 'ctime' ? {_id: 1} : {_id: -1}
         return await DiscountRepository.fillAllDiscountCodeUnSelect({
             limit, sort, page, 
             filter: {
-                discount_shopId: shopId,
+                // discount_shopId: shopId,
                 discount_is_active: true,
                 ...filter
             }, 
@@ -107,21 +108,21 @@ class DiscountService {
             discount_shopId: shopId
         });
 
-        if (!discount) throw new BadRequest({ message: 'Discount code not found' });
-        if (!discount.discount_is_active) throw new BadRequest({ message: 'Discount code is not active' });
-        if (!discount.discount_max_uses) throw new BadRequest({ message: 'Discount code is not active' });
+        if (!discount) throw new BadRequest('Discount code not found' );
+        if (!discount.discount_is_active) throw new BadRequest('Discount code is not active' );
+        if (!discount.discount_max_uses) throw new BadRequest('Discount code is not active' );
 
         if (new Date() < discount.discount_start_date || new Date() > discount.discount_end_date) {
-            throw new BadRequest({ message: 'Discount code is not active' });
+            throw new BadRequest('Discount code is not active' );
         }
 
-        if (discount.discount_max_uses_per_user > 0) {
-            const userUsed = discount.discount_users_used.find(user => user === shopId);
-            if (userUsed) throw new BadRequest({ message: 'User used discount code' });
+        if (discount.discount_max_uses_per_user > 0 && discount.discount_users_used.length > 0) {
+            const userUsed = await discount.discount_users_used.find(user => user === shopId);
+            if (userUsed.length >= discount.max_uses_per_user) throw new BadRequest('Discount not valid' );
         }
 
-        const totalAmount = products.reduce((acc, product) => acc + product.product_price, 0);
-        if (discount.discount_min_order_value > total) throw new BadRequest({ message: 'Discount code is not active' });
+        const totalAmount = products.reduce((acc, product) => acc + (product.product_price * product.product_quantity), 0);
+        if (discount.discount_min_order_value > totalAmount) throw new BadRequest('Discount code is not active' );
 
         const discountAmount = discount.discount_type === 'fixed_amount' ? discount.discount_value : (totalAmount * discount.discount_value) / 100;
 
@@ -146,7 +147,7 @@ class DiscountService {
             discount_shopId: shopId
         });
 
-        if (!discount) throw new BadRequest({ message: 'Discount code not found' });
+        if (!discount) throw new BadRequest('Discount code not found' );
 
         return await discountModel.deleteOne({ _id: discount._id });
     }
@@ -159,7 +160,7 @@ class DiscountService {
             discount_shopId: shopId
         });        
 
-        if (!discount) throw new BadRequest({ message: 'Discount code not found' });
+        if (!discount) throw new BadRequest('Discount code not found' );
 
         const result = await discountModel.findByIdAndUpdate(discount._id, {
             $pull: { discount_users_used: shopId },

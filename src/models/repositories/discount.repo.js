@@ -5,13 +5,9 @@ const { selectFields, unSelectFields } = require("../../utils");
 const discountModel = require("../discount.model")
 
 class DiscountRepository {
-    model;
-    constructor(discountModel) {
-        this.model = discountModel
-    }
 
     async fillAllDiscountCodeSelect({limit, sort, page, filter, select}) {
-        return await this.model.find(filter)
+        return await discountModel.find(filter)
                 .sort(sort)
                 .skip(page)
                 .limit(limit)
@@ -20,7 +16,7 @@ class DiscountRepository {
     }
 
     async fillAllDiscountCodeUnSelect({limit, sort, page, filter, select}) {
-        return await this.model.find(filter)
+        return await discountModel.find(filter)
                 .sort(sort)
                 .skip(page)
                 .limit(limit)
@@ -29,7 +25,7 @@ class DiscountRepository {
     }
 
     async findOneDiscountCode(filter) {
-        return await this.model.findOne(filter).lean()
+        return await discountModel.findOne(filter).lean()
     }
 
 

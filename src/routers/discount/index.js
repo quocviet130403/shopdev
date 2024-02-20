@@ -11,7 +11,7 @@ router.get('/all', asynHandler(discountController.findAllDiscountCode));
 router.use(authentication);
 
 router.post('/create', asynHandler(discountController.createDiscountCode));
-router.get('/product', asynHandler(discountController.findAllDiscountCodeWithProduct));
+router.post('/product', asynHandler(discountController.findAllDiscountCodeWithProduct));
 router.post('/get-amount', asynHandler(discountController.getDiscoundAmount));
 router.post('/delete', asynHandler(discountController.deleteDiscountCode));
 router.post('/cancel', asynHandler(discountController.cancelDiscountCode));

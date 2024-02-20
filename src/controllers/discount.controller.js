@@ -4,7 +4,7 @@ const { Created, Ok } = require("../core/success.error");
 const discountService = require("../services/discount.service");
 
 class DiscountController {
-    async createDiscountCode() {
+    async createDiscountCode(req, res, next) {
         new Created({ 
             message: 'Discount Created Successfully', 
             metadata: await discountService.createDiscountCode({
@@ -14,27 +14,21 @@ class DiscountController {
         }).send(res)
     }
 
-    async findAllDiscountCodeWithProduct() {
+    async findAllDiscountCodeWithProduct(req, res, next) {
         new Ok({ 
             message: 'Discount Found', 
-            metadata: await discountService.findAllDiscountCodeWithProduct({
-                shopId: req.userId,
-                ...req.query
-            }) 
+            metadata: await discountService.findAllDiscountCodeWithProduct(req.body) 
         }).send(res)
     }
 
-    async findAllDiscountCode() {
+    async findAllDiscountCode(req, res, next) {
         new Ok({ 
             message: 'Discount Found', 
-            metadata: await discountService.findAllDiscountCode({
-                shopId: req.userId,
-                ...req.query
-            }) 
+            metadata: await discountService.findAllDiscountCode(req.query) 
         }).send(res)
     }
 
-    async getDiscoundAmount() {
+    async getDiscoundAmount(req, res, next) {
         new Ok({ 
             message: 'Discount Amount', 
             metadata: await discountService.getDiscoundAmount({
@@ -44,7 +38,7 @@ class DiscountController {
         }).send(res)
     }
 
-    async deleteDiscountCode() {
+    async deleteDiscountCode(req, res, next) {
         new Ok({ 
             message: 'Discount Deleted', 
             metadata: await discountService.deleteDiscountCode({
@@ -54,7 +48,7 @@ class DiscountController {
         }).send(res)
     }
 
-    async cancelDiscountCode () {
+    async cancelDiscountCode (req, res, next) {
         new Ok({ 
             message: 'Discount Cancelled', 
             metadata: await discountService.cancelDiscountCode({

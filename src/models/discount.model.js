@@ -45,7 +45,8 @@ const discountSchema = new Schema({
     }, // danh sách discount đang được sử dụng
     discount_uses_count: {
         type: Number,
-        required: true
+        required: true,
+        default: 0
     }, // số lượng discount đã sử dụng
     discount_max_uses_per_user: {
         type: Number,
