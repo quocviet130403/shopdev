@@ -39,17 +39,21 @@ const discountSchema = new Schema({
         type: Number,
         required: true
     }, // số lượng discount được áp dụng
+    discount_users_used: {
+        type: Array,
+        default: [],
+    }, // danh sách discount đang được sử dụng
     discount_uses_count: {
         type: Number,
         required: true
-    }, // số lượng discoutn đã sử dụng
+    }, // số lượng discount đã sử dụng
     discount_max_uses_per_user: {
         type: Number,
         required: true
     }, // số lượng discount được áp dụng cho 1 user
     discount_min_order_value: {
         type: Number,
-        required: true
+        default: 0
     }, // số tiền tối thiểu để áp dụng discount
     discount_shopId: {
         type: Schema.Types.ObjectId,
