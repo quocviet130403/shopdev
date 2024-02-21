@@ -117,8 +117,8 @@ class DiscountService {
         }
 
         if (discount.discount_max_uses_per_user > 0 && discount.discount_users_used.length > 0) {
-            const userUsed = await discount.discount_users_used.find(user => user === shopId);
-            if (userUsed.length >= discount.max_uses_per_user) throw new BadRequest('Discount not valid' );
+            const userUsed = await discount.discount_users_used.find(user => user == shopId);
+            if (userUsed.length >= discount.discount_max_uses_per_user) throw new BadRequest('Discount not valid' );
         }
 
         const totalAmount = products.reduce((acc, product) => acc + (product.product_price * product.product_quantity), 0);
