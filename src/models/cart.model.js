@@ -12,7 +12,7 @@ const cartSchema = new Schema({
         enum: ['active', 'complete', 'failed', 'pending'],
         default: 'active'
     },
-    cart_proudcts: {
+    cart_products: {
         type: Array,
         required: true,
         default: []
