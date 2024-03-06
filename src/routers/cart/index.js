@@ -8,6 +8,8 @@ const router = express.Router()
 
 router.use(authentication);
 
+router.get('/all', asynHandler(cartController.getCart));
 router.post('/create', asynHandler(cartController.addToCart));
+router.post('/delete', asynHandler(cartController.deleteUserCart));
 
 module.exports = router 
