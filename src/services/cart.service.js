@@ -3,6 +3,8 @@
 const cartModel = require('../models/cart.model')
 const cartRepository = require('../models/repositories/cart.repo')
 const { BadRequest } = require("../core/error.response");
+const productModel = require('../models/product.model');
+const productRepo = require('../models/repositories/product.repo');
 
 class CartService {
     async updateUserCartQuatity({userId, product}) {
@@ -19,10 +21,15 @@ class CartService {
     }
 
     async addToCart ({userId, product}) {
-        const cart = cartRepository.findById(userId)
+
+        if (!product.Id) throw new NotFoundError('Not Found Product.')
+        const productExist = await productRepo.findOneProduct({product_id: product.Id, select: ["_id"]})
+        if (!productExist) throw new NotFoundError('Not Found Product.')
+
+        const cart = await cartRepository.findById(userId)
+        if (!cart) return await cartRepository.create({userId, product})
 
         if (cart.cart_state !== 'active') throw new BadRequest('Cart Not Active.')
-        if (!cart) return await cartRepository.create({userId, product})
         const ExistProductInCart = cart.cart_products.findIndex(p => p.productId == product.Id)
         
         if (!cart.cart_products.length || ExistProductInCart !== -1) {

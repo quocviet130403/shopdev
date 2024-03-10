@@ -6,7 +6,7 @@ class CartRepository {
     async create({ userId, product }) {
         return await cartModel.create({
             cart_userId: userId, 
-            cart_proudtcs: [product]
+            cart_products: [product]
         })
     }
 
