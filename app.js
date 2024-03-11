@@ -14,6 +14,10 @@ app.use(compression())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
+require('./src/tests/inventory.test')
+const productTestService = require('./src/tests/product.test')
+productTestService.purchaseProduct('Apple')
+
 // database
 require('./src/dbs/init.mongo')
 // const { checkOverload } = require('./src/helpers/check.connect')
