@@ -1,6 +1,6 @@
 'use strict'
 
-const { Created } = require("../core/success.error")
+const { Created, Ok } = require("../core/success.error")
 const commentService = require("../services/comment.service")
 
 class CommentController {
@@ -11,6 +11,13 @@ class CommentController {
                 userId: req.userId,
                 ...req.body
             }) 
+        }).send(res)
+    }
+
+    async getListComment(req, res, next) {
+        new Ok({
+            message: 'List Comment',
+            metadata: await commentService.getListComment(req.query)
         }).send(res)
     }
 }

@@ -9,5 +9,6 @@ const router = express.Router()
 router.use(authentication);
 
 router.get('/create', asynHandler(commentController.createComment));
+router.get('/list', asynHandler(commentController.getListComment));
 
 module.exports = router 

@@ -51,8 +51,28 @@ class CommentService {
         comment.save()
     }
 
-    async getListComment({ productId }) {
+    async getListComment({ productId, parentId, limit = 50, offset = 0 }) {
+        if (parentId) {
+            const commentParent = await commentModel.findOne({ _id: parentId })
+            if (!commentParent) throw new BadRequest('Parent comment not found.')
 
+            const comments = await commentModel.find({
+                comment_productId: productId,
+                comment_left: { $gte: commentParent.comment_left },
+                comment_right: { $lte: commentParent.comment_right }
+            }).sort({ comment_left: 1 }).skip(offset).limit(limit).lean()
+
+            return comments
+        }
+
+        const commentParent = await commentModel.findOne({ _id: parentId })
+            if (!commentParent) throw new BadRequest('Parent comment not found.')
+
+            const comments = await commentModel.find({
+                comment_productId: productId
+            }).sort({ comment_left: 1 }).skip(offset).limit(limit).lean()
+
+            return comments
     }
 
     async deleteComment({ commentId }) {
