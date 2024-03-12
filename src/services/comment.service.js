@@ -60,7 +60,14 @@ class CommentService {
                 comment_productId: productId,
                 comment_left: { $gte: commentParent.comment_left },
                 comment_right: { $lte: commentParent.comment_right }
-            }).sort({ comment_left: 1 }).skip(offset).limit(limit).lean()
+            })
+            .select({
+                comment_content: 1,
+                comment_parentId: 1,
+                comment_left: 1,
+                comment_right: 1
+            })
+            .sort({ comment_left: 1 }).skip(offset).limit(limit).lean()
 
             return comments
         }
@@ -70,7 +77,14 @@ class CommentService {
 
             const comments = await commentModel.find({
                 comment_productId: productId
-            }).sort({ comment_left: 1 }).skip(offset).limit(limit).lean()
+            })
+            .select({
+                comment_content: 1,
+                comment_parentId: 1,
+                comment_left: 1,
+                comment_right: 1
+            })
+            .sort({ comment_left: 1 }).skip(offset).limit(limit).lean()
 
             return comments
     }
