@@ -12,5 +12,6 @@ router.use(`${path}/auth`, require('./access/index.js'));
 router.use(`${path}/product`, require('./product/index.js'));
 router.use(`${path}/discount`, require('./discount/index.js'));
 router.use(`${path}/cart`, require('./cart/index.js'));
+router.use(`${path}/comment`, require('./cart/comment.js'));
 
 module.exports = router
