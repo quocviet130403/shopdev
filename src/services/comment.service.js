@@ -89,8 +89,32 @@ class CommentService {
             return comments
     }
 
-    async deleteComment({ commentId }) {
+    async deleteComment({ commentId, productId }) {
+        const product = await productRepo.findOneProduct({ _id: productId, select: [] })
+        if (!product) throw new BadRequest('Product not found.')
 
+        const comment = await commentModel.findOne({ _id: commentId })
+        if (!comment) throw new BadRequest('Comment not found.')
+
+        const withComment = comment.comment_right - comment.comment_left + 1
+
+        await commentModel.deleteMany({
+            comment_productId: productId,
+            comment_left: { $gte: comment.comment_left },
+            comment_right: { $lte: comment.comment_right }
+        })
+
+        await commentModel.updateMany({
+            comment_productId: productId,
+            comment_left: { $gte: comment.comment_right }
+        }, { $inc: { comment_left: -withComment } })
+
+        await commentModel.updateMany({
+            comment_productId: productId,
+            comment_right: { $gte: comment.comment_right }
+        }, { $inc: { comment_right: -withComment } })
+
+        return true
     }
 }
 
