@@ -14,4 +14,8 @@ router.use(`${path}/discount`, require('./discount/index.js'));
 router.use(`${path}/cart`, require('./cart/index.js'));
 router.use(`${path}/comment`, require('./comment/index.js'));
 
+// notification
+// inventory
+// upload
+
 module.exports = router
