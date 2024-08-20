@@ -17,5 +17,6 @@ router.use(`${path}/comment`, require('./comment/index.js'));
 // notification
 // inventory
 // upload
+// message queue
 
 module.exports = router
