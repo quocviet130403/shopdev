@@ -8,9 +8,9 @@ const profileController = require('../../controllers/profile.controller');
 const router = express.Router()
 
 
-router.use(authentication);
-router.get('/viewAny', grantAccess('read:any', 'profiles'), asynHandler(profileController.profiles));
-router.get('/viewOwn', grantAccess('read:own', 'profile'), asynHandler(profileController.profile));
+// router.use(authentication);
+router.get('/viewAny', grantAccess('readAny', 'profiles'), asynHandler(profileController.profiles));
+router.get('/viewOwn', grantAccess('readOwn', 'profile'), asynHandler(profileController.profile));
 
 
 module.exports = router 
