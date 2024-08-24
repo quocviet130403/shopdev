@@ -42,7 +42,7 @@ const discountSchema = new Schema({
     discount_users_used: {
         type: Array,
         default: [],
-    }, // danh sách discount đang được sử dụng
+    }, // danh sách user đang sử dụng discount
     discount_uses_count: {
         type: Number,
         required: true,
